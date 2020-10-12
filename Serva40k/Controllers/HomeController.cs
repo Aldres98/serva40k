@@ -23,12 +23,17 @@ namespace Serva40k.Controllers
         }
         
         [HttpGet("getZalypa")]
-        public string GetZalypa(string name, string content, string category) 
+        public List<TestDataModel> GetZalypa(string name, string content, string category)
         {
+            var zalypas = new List<TestDataModel>();
             _dbContext.Posts.Add(new TestDataModel{Name = name, Content = content, Category = category});
-            _dbContext.SaveChanges();
-            return "1";
+            var a = _dbContext.Posts.Where(p => p.Category == "hmvzmvxzn").Select(p => new TestDataModel{Name = p.Name});
+            foreach (var zalypa in a)
+            {
+             zalypas.Add(zalypa);   
+            }
 
+            return zalypas;
         }
 
         
